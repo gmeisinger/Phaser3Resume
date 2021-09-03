@@ -5,6 +5,7 @@ Thumbs.db
 *.suo
 *.sublime-project
 *.sublime-workspace
+.vs
 
 # Vendors
 node_modules/
@@ -12,3 +13,4 @@ node_modules/
 # Build
 dist/
 /npm-debug.log
+.vs/slnx.sqlite
