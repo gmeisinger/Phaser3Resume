@@ -47,7 +47,7 @@ export class UI extends Phaser.Scene {
             width / 4.5,
             height / 3,
             "tv9slice",
-            16,
+            28,
             24
         );
         this.diplomaNineSlice = this.add.nineslice(
