@@ -2,92 +2,178 @@ import Phaser, { GameObjects, Tweens } from "phaser";
 import eventsCenter from "../../classes/EventsCenter.js";
 
 export class UI extends Phaser.Scene {
-  container;
-  nineSlice;
-  title;
-  text;
-  rects;
+    container;
+    macNineSlice;
+    tvNineSlice;
+    diplomaNineSlice;
+    musicNineSlice;
+    paperNineSlice;
+    title;
+    text;
+    rects;
 
-  constructor() {
-      super("ui");
-      this.rects = [];
-  }
+    nineSlices;
+    currentNineSlice;
 
-  create() {
-    console.log("ui scene was created");
-
-    const width = this.game.scale.width;
-    const height = this.game.scale.height;
-
-    const buffer = 16;
-
-    this.container = this.add.container((8.5 * width) / 16, height / 6);
-    this.container.setScale(2);
-    this.nineSlice = this.add.nineslice(
-      0,
-      0,
-      width / 4.5,
-      height / 3,
-      "mac9slice",
-      16,
-      24
-    );
-    this.container.add(this.nineSlice);
-
-    // create the rectangles used for animation
-    for (let i = 0; i < 4; i++) {
-      this.rects.push(
-        new GameObjects.Rectangle(
-          this,
-          this.container.x - width / 2,
-          this.container.y,
-          0,
-          0
-        )
-      );
+    constructor() {
+        super("ui");
+        this.rects = [];
     }
 
-    // add the text
-    this.title = this.add
-      .bitmapText(
-        this.nineSlice.getCenter().x - buffer / 4,
-        buffer / 2 + 4,
-        "dogica",
-        "Interactive Resume",
-        10
-      )
-      .setCenterAlign()
-      .setOrigin(0.5, 0);
-    this.text = this.add.bitmapText(
-      buffer / 2,
-      buffer + 12,
-      "dogica",
-      "Stuff about me!",
-      8
-    );
-    this.setText("Phaser Resume", ["Created by George Meisinger","", "Made with Phaser 3","", "The Final Fantasy Prelude theme was","programmed in Tone.js"]);
-    this.container.add([this.title, this.text]);
+    create() {
+        console.log("ui scene was created");
 
-    this.container.setVisible(false);
-    // listeners
-    eventsCenter.on("toggle-ui", this.toggleUI, this);
-    eventsCenter.on("set-text", this.setText, this);
-    //eventsCenter.on("show-ui", this.display, this);
-    //eventsCenter.on("hide-ui", this.hide, this);
-  }
+        const width = this.game.scale.width;
+        const height = this.game.scale.height;
 
-  setTitle(text) {
-    this.title.setText(text);
-  }
+        const buffer = 16;
 
-  setText(title, text) {
-    this.title.setText(title);
-    this.text.setText(text);
-  }
+        this.container = this.add.container((8.5 * width) / 16, height / 6);
+        this.container.setScale(2);
 
-  showUI(visible) {
-    this.container.setVisible(visible);
-  }
+        // add the 9 slices
+        this.macNineSlice = this.add.nineslice(
+            0,
+            0,
+            width / 4.5,
+            height / 3,
+            "mac9slice",
+            16,
+            24
+        );
+        this.tvNineSlice = this.add.nineslice(
+            0,
+            0,
+            width / 4.5,
+            height / 3,
+            "tv9slice",
+            16,
+            24
+        );
+        this.diplomaNineSlice = this.add.nineslice(
+            0,
+            0,
+            width / 4.5,
+            height / 3,
+            "diploma9slice",
+            28,
+            24
+        );
+        this.musicNineSlice = this.add.nineslice(
+            0,
+            0,
+            width / 4.5,
+            height / 3,
+            "music9slice",
+            20,
+            24
+        );
+        this.paperNineSlice = this.add.nineslice(
+            0,
+            0,
+            width / 4.5,
+            height / 3,
+            "paper9slice",
+            16,
+            24
+        );
+
+        this.nineSlices = {
+            'mac': this.macNineSlice,
+            'tv': this.tvNineSlice,
+            'diploma': this.diplomaNineSlice,
+            'music': this.musicNineSlice,
+            'paper': this.paperNineSlice,
+        }
+
+        //this.nineSlices = new Map([
+        //    ['mac', this.macNineSlice],
+        //    ['tv', this.tvNineSlice],
+        //    ['diploma', this.diplomaNineSlice],
+        //    ['music', this.musicNineSlice],
+        //    ['paper', this.paperNineSlice],
+        //]);
+        
+        Object.keys(this.nineSlices).map((key) => {
+            this.container.add(this.nineSlices[key]);
+            this.nineSlices[key].setVisible(false);
+        });
+        
+
+        //this.nineSlices.forEach((panel) => {
+        //    panel.setVisible(false);
+        //});
+
+        this.currentNineSlice = this.nineSlices.diploma;
+        this.currentNineSlice.setVisible(true);
+
+        // create the rectangles used for animation
+        for (let i = 0; i < 4; i++) {
+            this.rects.push(
+                new GameObjects.Rectangle(
+                    this,
+                    this.container.x - width / 2,
+                    this.container.y,
+                    0,
+                    0
+                )
+            );
+        }
+
+        // add the text
+        this.title = this.add
+            .bitmapText(
+                this.currentNineSlice.getCenter().x - buffer / 4,
+                buffer / 2 + 4,
+                "dogica",
+                "Interactive Resume",
+                10
+            )
+            .setCenterAlign()
+            .setOrigin(0.5, 0);
+        this.text = this.add.bitmapText(
+            buffer / 2,
+            buffer + 12,
+            "dogica",
+            "Stuff about me!",
+            8
+        );
+        //this.setText("Phaser Resume", ["Created by George Meisinger", "", "Made with Phaser 3", "", "The Final Fantasy Prelude theme was", "programmed in Tone.js"]);
+        this.container.add([this.title, this.text]);
+
+        this.container.setVisible(false);
+        // listeners
+        eventsCenter.on("toggle-ui", this.toggleUI, this);
+        eventsCenter.on("set-text", this.setText, this);
+        //eventsCenter.on("show-ui", this.display, this);
+        //eventsCenter.on("hide-ui", this.hide, this);
+    }
+
+    setTitle(text) {
+        this.title.setText(text);
+    }
+
+    setText(nineSlice, title, text) {
+        this.currentNineSlice.setVisible(false);
+        this.currentNineSlice = this.nineSlices[nineSlice];
+
+        if (nineSlice === 'tv') {
+            this.text.tint = 0x33984b;
+            this.title.tint = 0x33984b;
+        } else {
+            this.text.tint = 0x000000;
+            this.title.tint = 0x000000;
+        }
+
+        this.currentNineSlice.setVisible(true);
+
+        this.title.setText(title);
+        this.text.setText(text);
+    }
+
+    showUI(visible) {
+        this.container.setVisible(visible);
+    }
 
     //display(): void {
     //    let newTween: Tweens.Tween;
@@ -123,7 +209,7 @@ export class UI extends Phaser.Scene {
     //    newTween.setCallback("onComplete", this.showUI, [true]);
     //}
 
-  toggleUI() {
-    this.container.setVisible(!this.container.visible);
-  }
+    toggleUI() {
+        this.container.setVisible(!this.container.visible);
+    }
 }

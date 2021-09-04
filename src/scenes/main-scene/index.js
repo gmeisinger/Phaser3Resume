@@ -64,11 +64,11 @@ export class MainScene extends Phaser.Scene {
         this.initMap();
         
         
-        const devZone = new Interactable(this, 176, 128, 'computer', -16, -32, 32, 'Software Development', [".NET - 3 years\n", "Python - 5 years\n", "    - Back-end web development", "      with Flask\n", "    - Web scraping\n", "    - Machine learning, chatbot", "      built with RASA\n", "HTML/Javascript/CSS - 5 years\n", "     - Node.js, React, Bootstrap\n", "Proficient in C, C++ anda Java"]);
-        const musicZone = new Interactable(this, 320, 144, 'instruments', 0, -16, 48, 'Hobbies', ["Music\n", "    - Blues\n", "    - Rock\n", "    - EDM\n", "Playing and making video games\n", "    - Retro\n", "    - RPGs\n", "    - MMOs\n", "Playing guitar and ukulele\n", "Board games\n", "Anime and manga\n", "Hanging out with friends!"]);
-        const educationZone = new Interactable(this, 240, 308, 'diploma', 8, -24, 48, 'Education And Work Experience', ["Graduated from University of Pittsburgh\n", "    - December 2020\n", "    - BS in Computer Science\n", "Software Development Intern at Plazsoft\n", "    - .NET desktop and web development\n", "    - 2020 - 2021\n", "i3 Corps\n", "    - Unity Developer\n", "    - 2021 to present"]);
-        const gameZone = new Interactable(this, 448, 224, 'tv', 0, -32, 64, 'Game Development', ["Several games completed in Unity and ", "Godot\n", "    - Game Jams\n", "    - Personal projects\n", "2d game engine written in C++ using ", "SDL2 library\n", "This resume was created using the ", "Phaser 3 Javascript framework\n", "Experience created pixel-art assets", "and sound effects"]);
-        const aboutZone = new Interactable(this, 640, 224, 'arrow', 0, -32, 48, 'About This Project', ["Created by George Meisinger", "", "Made with Phaser 3", "", "The Final Fantasy Prelude theme was", "programmed using Tone.js\n", "    - Written by Nobuo Uematsu"]);
+        const devZone = new Interactable(this, 176, 128, 'computer', -16, -32, 32, 'mac', 'Software Development', [".NET - 3 years\n", "Python - 5 years\n", "    - Back-end web development", "      with Flask\n", "    - Web scraping\n", "    - Machine learning, chatbot", "      built with RASA\n", "HTML/Javascript/CSS - 5 years\n", "     - Node.js, React, Bootstrap\n", "Proficient in C, C++ anda Java"]);
+        const musicZone = new Interactable(this, 320, 144, 'instruments', 0, -16, 48, 'music', '\nHobbies', ["\nMusic\n", "    - Blues\n", "    - Rock\n", "    - EDM\n", "Playing and making video games\n", "    - Retro/Arcade\n", "    - RPGs\n", "Playing guitar and ukulele\n", "Board games\n", "Anime and manga\n", "Hanging out with friends!"]);
+        const educationZone = new Interactable(this, 240, 308, 'diploma', 8, -24, 48, 'diploma', 'Education And Work Experience', ["Graduated from University of Pittsburgh\n", "    - December 2020\n", "    - BS in Computer Science\n", "Software Development Intern at Plazsoft\n", "    - .NET desktop and web development\n", "    - 2020 - 2021\n", "i3 Corps\n", "    - Unity Developer\n", "    - 2021 to present"]);
+        const gameZone = new Interactable(this, 448, 224, 'tv', 0, -32, 64, 'tv', 'Game Development', ["Several games completed in Unity and ", "Godot\n", "    - Game Jams\n", "    - Personal projects\n", "2d game engine written in C++ using ", "SDL2 library\n", "This resume was created using the ", "Phaser 3 Javascript framework\n", "Experience created pixel-art assets", "and sound effects"]);
+        const aboutZone = new Interactable(this, 640, 224, 'arrow', 0, -32, 48, 'paper', 'About This Project', ["Created by George Meisinger", "", "Made with Phaser 3", "", "The Final Fantasy Prelude theme was", "programmed using Tone.js\n", "    - Written by Nobuo Uematsu"]);
 
         //devZone.renderDebug();
         //musicZone.renderDebug();
@@ -92,7 +92,7 @@ export class MainScene extends Phaser.Scene {
         this.zones.forEach(zone => {
             if (zone.isColliding(this.player.getBounds())) {
                 overlap = true;
-                eventsCenter.emit('set-text', zone.title, zone.text);
+                eventsCenter.emit('set-text', zone.nineSlice, zone.title, zone.text);
             }
         });
         if (overlap && !this.uiShowing) {

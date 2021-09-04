@@ -7,6 +7,7 @@ export class Interactable extends Physics.Arcade.Sprite {
 
     title;
     text;
+    nineSlice;
 
     constructor(
         scene,
@@ -16,6 +17,7 @@ export class Interactable extends Physics.Arcade.Sprite {
         zoneOffsetX,
         zoneOffsetY,
         zoneSize,
+        nineSlice,
         title,
         text,
         frame
@@ -24,6 +26,7 @@ export class Interactable extends Physics.Arcade.Sprite {
 
         this.title = title;
         this.text = text;
+        this.nineSlice = nineSlice;
 
         this.outlineZone = this.scene.add.zone(
             this.x - zoneOffsetX,
