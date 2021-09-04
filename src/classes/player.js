@@ -13,7 +13,6 @@ export class Player extends Actor {
 
     speed = 128;
 
-
     constructor(scene, x, y) {
         super(scene, x, y, 'player');
 
@@ -22,6 +21,7 @@ export class Player extends Actor {
         this.keyA = this.scene.input.keyboard.addKey('A');
         this.keyS = this.scene.input.keyboard.addKey('S');
         this.keyD = this.scene.input.keyboard.addKey('D');
+        this.pointer = this.scene.input.activePointer;
 
         // PHYSICS
         this.getBody().setSize(1, 10);
@@ -72,39 +72,79 @@ export class Player extends Actor {
         this.getBody().setVelocity(0);
         this.moving = false;
 
-        if (this.keyW?.isDown) {
-            this.body.velocity.y = -this.speed;
+        //touch/mouse controls
+        if (this.scene.input.activePointer.isDown) {
+            const directionX = this.scene.input.activePointer.x - this.scene.game.scale.width / 2;
+            const directionY = this.scene.input.activePointer.y - this.scene.game.scale.height / 2;
+            this.body.velocity.x = directionX;
+            this.body.velocity.y = directionY;
             this.moving = true;
-            this.up = true;
-        }
+        } else {
+            if (this.keyW?.isDown) {
+                this.body.velocity.y = -this.speed;
+                this.moving = true;
+            }
 
-        if (this.keyA?.isDown) {
-            this.body.velocity.x = -this.speed;
-            this.checkFlip();
-            //this.getBody().setOffset(48, 15);
-            this.moving = true;
-            if (!this.keyW?.isDown) {
-                this.up = false;
+            if (this.keyA?.isDown) {
+                this.body.velocity.x = -this.speed;
+                this.moving = true;
+            }
+
+            if (this.keyS?.isDown) {
+                this.body.velocity.y = this.speed;
+                this.moving = true;
+            }
+
+            if (this.keyD?.isDown) {
+                this.body.velocity.x = this.speed;
+                this.moving = true;
             }
         }
 
-        if (this.keyS?.isDown) {
-            this.body.velocity.y = this.speed;
-            this.moving = true;
+        if (this.body.velocity.y < 0) {
+            this.up = true;
+        } else if (this.moving) {
             this.up = false;
         }
 
-        if (this.keyD?.isDown) {
-            this.body.velocity.x = this.speed;
+        if (this.moving) {
             this.checkFlip();
-            //this.getBody().setOffset(15, 15);
-            this.moving = true;
-            if (!this.keyW?.isDown) {
-                this.up = false;
-            }
+            this.body.velocity.limit(this.speed);
         }
 
-        this.body.velocity.limit(this.speed);
+        //if (this.keyW?.isDown) {
+        //    this.body.velocity.y = -this.speed;
+        //    this.moving = true;
+        //    this.up = true;
+        //}
+
+        //if (this.keyA?.isDown) {
+        //    this.body.velocity.x = -this.speed;
+        //    this.checkFlip();
+        //    //this.getBody().setOffset(48, 15);
+        //    this.moving = true;
+        //    if (!this.keyW?.isDown) {
+        //        this.up = false;
+        //    }
+        //}
+
+        //if (this.keyS?.isDown) {
+        //    this.body.velocity.y = this.speed;
+        //    this.moving = true;
+        //    this.up = false;
+        //}
+
+        //if (this.keyD?.isDown) {
+        //    this.body.velocity.x = this.speed;
+        //    this.checkFlip();
+        //    //this.getBody().setOffset(15, 15);
+        //    this.moving = true;
+        //    if (!this.keyW?.isDown) {
+        //        this.up = false;
+        //    }
+        //}
+
+        //this.body.velocity.limit(this.speed);
 
         // Animation
         if (this.moving === true) {

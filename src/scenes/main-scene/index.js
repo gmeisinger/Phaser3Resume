@@ -22,7 +22,7 @@ export class MainScene extends Phaser.Scene {
         this.uiShowing = false;
     }
 
-     initMap() {
+    initMap() {
         this.map = this.make.tilemap({ key: 'house', tileWidth: 32, tileHeight: 32 });
         this.tileset = this.map.addTilesetImage('SimpleTown', 'tiles');
         this.groundLayer = this.map.createLayer('ground', this.tileset, 0, 0);
@@ -37,7 +37,7 @@ export class MainScene extends Phaser.Scene {
         //this.showDebugWalls();
     }
 
-     showDebugWalls() {
+    showDebugWalls() {
         const debugGraphics = this.add.graphics().setAlpha(0.7);
         this.wallLayer.renderDebug(debugGraphics, {
             tileColor: null,

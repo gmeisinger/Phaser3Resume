@@ -65,7 +65,7 @@ export class UI extends Phaser.Scene {
       "Stuff about me!",
       8
     );
-    //this.setText("Phaser Resume", ["Created by George Meisinger","", "Made with Phaser 3","", "The Final Fantasy Prelude theme was","programmed in Tone.js"]);
+    this.setText("Phaser Resume", ["Created by George Meisinger","", "Made with Phaser 3","", "The Final Fantasy Prelude theme was","programmed in Tone.js"]);
     this.container.add([this.title, this.text]);
 
     this.container.setVisible(false);

@@ -1,4 +1,15 @@
 import Phaser, { GameObjects } from "phaser";
+import playerSprites from '../../assets/sprites/player.png';
+import macNineSlice from '../../assets/sprites/mac9slice.png';
+import computerSprite from '../../assets/sprites/computer.png';
+import diplomaSprite from '../../assets/sprites/diploma.png';
+import instrumentsSprite from '../../assets/sprites/instruments.png';
+import tvSprite from '../../assets/sprites/tv.png';
+import arrowSprite from '../../assets/sprites/arrow.png';
+import tiles from '../../assets/tilemaps/tiles/simple_town.png';
+import tilemap from '../../assets/tilemaps/json/house.json';
+import fontPNG from '../../assets/fonts/dogica.png';
+import fontXML from '../../assets/fonts/dogica.xml';
 
 export class LoadingScene extends Phaser.Scene {
 	constructor() {
@@ -6,9 +17,9 @@ export class LoadingScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.baseURL = "src/assets/";
+		//this.load.baseURL = "assets/";
 
-		this.load.spritesheet("player", "sprites/player.png", {
+		this.load.spritesheet("player", playerSprites, {
 			frameWidth: 32,
 			frameHeight: 35
 		});
@@ -16,41 +27,41 @@ export class LoadingScene extends Phaser.Scene {
 		//tilemap
 		this.load.image({
 			key: 'tiles',
-			url: 'tilemaps/tiles/simple_town.png',
+			url: tiles,
 		});
-		this.load.tilemapTiledJSON('house', 'tilemaps/json/house.json');
+		this.load.tilemapTiledJSON('house', tilemap);
 
 		//9 slice images
 		this.load.image({
 			key: 'mac9slice',
-			url: 'sprites/mac9slice.png',
+			url: macNineSlice,
 		});
 
 		// sprites
 		this.load.image({
 			key: 'computer',
-			url: 'sprites/computer.png',
+			url: computerSprite,
 		});
 		this.load.image({
 			key: 'diploma',
-			url: 'sprites/diploma.png',
+			url: diplomaSprite,
 		});
 		this.load.image({
 			key: 'instruments',
-			url: 'sprites/instruments.png',
+			url: instrumentsSprite,
 		});
 		this.load.image({
 			key: 'tv',
-			url: 'sprites/tv.png',
+			url: tvSprite,
 		});
 		this.load.image({
 			key: 'arrow',
-			url: 'sprites/arrow.png',
+			url: arrowSprite,
 		});
 
 
-		// fonts
-		this.load.bitmapFont('dogica', 'fonts/dogica.png', 'fonts/dogica.xml');
+		//fonts
+		this.load.bitmapFont('dogica', fontPNG, fontXML);
 	}
 
 	create() {
