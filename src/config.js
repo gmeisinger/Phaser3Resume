@@ -23,6 +23,9 @@ export default {
         antialiasGL: false,
         pixelArt: true
     },
+    //audio: {
+    //    disableWebAudio: true
+    //},
     plugins: {
         global: [ NineSlicePlugin.DefaultCfg ],
     },
